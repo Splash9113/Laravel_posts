@@ -15,7 +15,7 @@
 Auth::routes();
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->route('posts.index');
 });
 
 Route::resource('posts', 'PostController');

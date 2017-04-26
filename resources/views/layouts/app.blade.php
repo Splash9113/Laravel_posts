@@ -14,10 +14,6 @@
     <link href="/css/app.css" rel="stylesheet">
     <link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
 
-    <!-- Scripts -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script src="/js/app.js"></script>
     <script>
         window.Laravel = <?php echo json_encode([
             'csrfToken' => csrf_token(),
@@ -84,7 +80,6 @@
     @yield('content')
 
     <!-- Scripts -->
-    {{--<script src="/js/app.js"></script>--}}
-    <script src="https://code.angularjs.org/1.2.13/angular.js"></script>
+    <script src="/js/app.js"></script>
 </body>
 </html>

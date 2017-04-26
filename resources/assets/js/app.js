@@ -19,7 +19,6 @@ $(document).ready(function () {
   //   el: 'body'
   // });
 
-
   $('.panel-heading').find('input').click(function () {
     window.location.replace(`/posts?active=${$('.panel-heading').find('input').val() == 1 ? 0 : 1}`);
   });
