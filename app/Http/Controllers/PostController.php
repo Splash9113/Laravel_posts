@@ -73,7 +73,7 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-        if (Gate::denies('update-post', $post)) {
+        if (Gate::denies('update', $post)) {
             return view('errors.403');
         }
         return view('post.edit', ['post' => $post]);
@@ -86,7 +86,7 @@ class PostController extends Controller
      */
     public function update(UpdatePostRequest $request, Post $post)
     {
-        if (Gate::denies('update-post', $post)) {
+        if (Gate::denies('update', $post)) {
             return view('errors.403');
         }
         $data = $request->all();

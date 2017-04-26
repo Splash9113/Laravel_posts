@@ -14,7 +14,7 @@
                     <div class="panel-body">
                         @forelse ($posts as $post)
                             <h4>
-                                @can ('update-post', $post)
+                                @can ('update', $post)
                                     <a href="{{ route('posts.edit', $post->id) }}">{{ $post->title }}</a>
                                     <form action="/posts/{{ $post->id }}?active={{$active}}" method="POST"
                                           onsubmit="return confirm('Do you really want to remove this post?');">
