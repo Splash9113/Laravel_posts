@@ -11,13 +11,13 @@
 |
 */
 
-$factory->define(App\User::class, function (Faker\Generator $faker) {
-    static $password;
+$factory->define(App\User::class, function () {
+    static $password = '123456';
 
     return [
-        'name' => $faker->name,
-        'email' => $faker->safeEmail,
-        'password' => $password ?: $password = bcrypt('secret'),
+        'name' => 'Admin',
+        'email' => 'admin@admin.com',
+        'password' => bcrypt($password),
         'remember_token' => str_random(10),
     ];
 });
@@ -27,5 +27,14 @@ $factory->define(App\Post::class, function (Faker\Generator $faker) {
         'title' => $faker->company,
         'body' => $faker->text,
         'active' => $faker->boolean,
+        'user_id' => 1
+    ];
+});
+
+$factory->define(App\Comment::class, function (Faker\Generator $faker) {
+    return [
+        'body' => $faker->text,
+        'post_id' => $faker->numberBetween(1,10),
+        'user_id' => 1
     ];
 });

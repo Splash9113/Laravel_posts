@@ -27,4 +27,14 @@ class PostPolicy
     {
         return $user->id == $post->user_id;
     }
+
+    /**
+     * @param User $user
+     * @param Post $post
+     * @return bool
+     */
+    public function destroy(User $user, Post $post)
+    {
+        return $user->id == $post->user_id;
+    }
 }

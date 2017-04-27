@@ -19,3 +19,5 @@ Route::get('/', function () {
 });
 
 Route::resource('posts', 'PostController');
+Route::post('posts/{post}/comments', 'CommentController@store')->name('comments.store');
+Route::delete('posts/{post}/comments/{comment}', 'CommentController@destroy')->name('comments.destroy');

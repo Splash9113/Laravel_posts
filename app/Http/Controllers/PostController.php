@@ -62,7 +62,7 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
-        return view('post.show', ['post' => $post]);
+        return view('post.show', ['post' => $post, 'comments' => $post->comments()->get()]);
     }
 
     /**
@@ -76,7 +76,7 @@ class PostController extends Controller
         if (Gate::denies('update', $post)) {
             return view('errors.403');
         }
-        return view('post.edit', ['post' => $post]);
+        return view('post.edit', ['post' => $post, 'comments' => $post->comments()->get()]);
     }
 
     /**
@@ -104,6 +104,9 @@ class PostController extends Controller
      */
     public function destroy(Request $request, Post $post)
     {
+        if (Gate::denies('destroy', $post)) {
+            return view('errors.403');
+        }
         $post->delete();
         return redirect()->route('posts.index', ['active' => $request->input('active', true)]);
     }

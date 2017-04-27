@@ -39,14 +39,16 @@
                             </div>
                         @endif
                         <div class="form-group">
-                            <div class="col-sm-offset-2 col-sm-7">
+                            <div class="col-sm-offset-2 col-sm-6">
                                 <div class="checkbox">
                                     <label><input type="checkbox" value="1" name="active" {{ old('active') ? 'checked' : '' }}>Active</label>
                                 </div>
                             </div>
-                            <div class="col-sm-3">
-                                <button class="btn btn-default" type="submit">Save</button>
-                                <a class="btn btn-danger" href="{{ route('posts.index') }}">Cancel</a>
+                            <div class="col-sm-2">
+                                <button class="btn btn-default btn-wide" type="submit">Save</button>
+                            </div>
+                            <div class="col-sm-2">
+                                <a class="btn btn-danger btn-wide" href="{{ route('posts.index') }}">Cancel</a>
                             </div>
                         </div>
                         {{ Form::close() }}

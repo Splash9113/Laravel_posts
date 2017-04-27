@@ -27,6 +27,7 @@
                         </div>
                     </div>
                 </div>
+                @include('post.comment')
             </div>
         </div>
     </div>

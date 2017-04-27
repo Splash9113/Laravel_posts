@@ -32,6 +32,6 @@ composer install<br>
 npm i<br>
 php artisan migrate<br>
 php artisan db:seed<br>
-#### Optional :
+#### Optional:
 php artisan ide-helper:meta<br>
 php artisan ide-helper:generate<br>
