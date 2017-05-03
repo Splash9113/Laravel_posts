@@ -7,7 +7,6 @@ use Illuminate\Http\Request;
 use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Gate;
 
 class PostController extends Controller
 {
@@ -73,7 +72,7 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-        if (Gate::denies('update', $post)) {
+        if (!policy($post)->update(Auth::user(), $post)) {
             return view('errors.403');
         }
         return view('post.edit', ['post' => $post, 'comments' => $post->comments()->get()]);
@@ -86,7 +85,7 @@ class PostController extends Controller
      */
     public function update(UpdatePostRequest $request, Post $post)
     {
-        if (Gate::denies('update', $post)) {
+        if (!policy($post)->update(Auth::user(), $post)) {
             return view('errors.403');
         }
         $data = $request->all();
@@ -104,7 +103,7 @@ class PostController extends Controller
      */
     public function destroy(Request $request, Post $post)
     {
-        if (Gate::denies('destroy', $post)) {
+        if (!policy($post)->destroy(Auth::user(), $post)) {
             return view('errors.403');
         }
         $post->delete();

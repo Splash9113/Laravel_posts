@@ -21,7 +21,12 @@ class CommentPolicy
         //
     }
 
-
+    /**
+     * @param User $user
+     * @param Comment $comment
+     * @param Post $post
+     * @return bool
+     */
     public function destroy(User $user, Comment $comment, Post $post)
     {
         return $user->id == $post->user_id || $user->id == $comment->user_id;

@@ -6,7 +6,7 @@ use App\Comment;
 use App\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Gate;
+//use Illuminate\Support\Facades\Gate;
 
 class CommentController extends Controller
 {
@@ -23,9 +23,12 @@ class CommentController extends Controller
 
     public function destroy(Post $post, Comment $comment)
     {
-        if (Gate::denies('destroy', [$comment, $post])) {
+        if (!policy($comment)->destroy(Auth::user(), $comment, $post)) {
             return view('errors.403');
         }
+//        if (Gate::denies('destroy', [$comment, $post])) {
+//            return view('errors.403');
+//        }
         $comment->delete();
         return back();
     }
