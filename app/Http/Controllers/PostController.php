@@ -73,7 +73,7 @@ class PostController extends Controller
     public function edit(Post $post)
     {
         if (!policy($post)->update(Auth::user(), $post)) {
-            return view('errors.403');
+            abort(403);
         }
         return view('post.edit', ['post' => $post, 'comments' => $post->comments()->get()]);
     }
@@ -86,7 +86,7 @@ class PostController extends Controller
     public function update(UpdatePostRequest $request, Post $post)
     {
         if (!policy($post)->update(Auth::user(), $post)) {
-            return view('errors.403');
+            abort(403);
         }
         $data = $request->all();
         $data['active'] = $data['active'] ?? '0';
@@ -104,7 +104,7 @@ class PostController extends Controller
     public function destroy(Request $request, Post $post)
     {
         if (!policy($post)->destroy(Auth::user(), $post)) {
-            return view('errors.403');
+            abort(403);
         }
         $post->delete();
         return redirect()->route('posts.index', ['active' => $request->input('active', true)]);

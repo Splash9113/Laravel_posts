@@ -3,10 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Comment;
+use App\Http\Requests\StoreCommentRequest;
 use App\Post;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-//use Illuminate\Support\Facades\Gate;
 
 class CommentController extends Controller
 {
@@ -15,7 +14,7 @@ class CommentController extends Controller
         $this->middleware('auth');
     }
 
-    public function store(Request $request, Post $post)
+    public function store(StoreCommentRequest $request, Post $post)
     {
         (Auth::user())->comments()->create($request->all() + ['post_id' => $post->id]);
         return back();
@@ -24,7 +23,7 @@ class CommentController extends Controller
     public function destroy(Post $post, Comment $comment)
     {
         if (!policy($comment)->destroy(Auth::user(), $comment, $post)) {
-            return view('errors.403');
+            abort(403);
         }
 //        if (Gate::denies('destroy', [$comment, $post])) {
 //            return view('errors.403');

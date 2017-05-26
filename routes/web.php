@@ -18,6 +18,14 @@ Route::get('/', function () {
     return redirect()->route('posts.index');
 });
 
+//Posts
 Route::resource('posts', 'PostController');
+
+//Comments
 Route::post('posts/{post}/comments', 'CommentController@store')->name('comments.store');
 Route::delete('posts/{post}/comments/{comment}', 'CommentController@destroy')->name('comments.destroy');
+
+//Messages
+Route::get('message', 'MessageController@index')->name('message.index');
+Route::get('message/{user}', 'MessageController@chat')->name('message.chat');
+Route::post('message/{user}', 'MessageController@send')->name('message.send');
