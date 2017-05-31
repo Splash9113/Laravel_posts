@@ -18,8 +18,4 @@ class Message extends Model
         return $this->belongsTo(Chat::class, 'to_chat_id', 'id');
     }
 
-    public function getWithUsers()
-    {
-        self::with('from', 'to')->get();
-    }
 }

@@ -5,12 +5,22 @@
         <div class="row">
             <div class="col-md-10 col-md-offset-1">
                 <div class="panel panel-default">
-                    <div class="panel-heading">Chat with {{$user->name}}</div>
+                    <div class="panel-heading">{{$chat->chatName}}</div>
                     <div class="panel-body">
-                        qwe
-
+                        @forelse ($messages as $message)
+                            <div class="row">
+                                @if ($message->from == Auth::user())
+                                    <div class="col-xs-1 chat-msg name your-chat-msg">You:</div>
+                                @else
+                                    <div class="col-xs-1 chat-msg name">{{$message->from->name}}:</div>
+                                @endif
+                                <div class="col-xs-11">{{$message->body}}</div>
+                            </div>
+                        @empty
+                            <p>This chat is empty</p>
+                        @endforelse
                         <div class="row new-comment">
-                            {{ Form::open(['route' => ['message.send', $user['id']], 'method' => 'post', 'class' => 'form-horizontal']) }}
+                            {{ Form::open(['route' => ['message.send', $chat->id], 'method' => 'post', 'class' => 'form-horizontal']) }}
                             <div class="col-sm-10">
                                 <input class="form-control" placeholder="Enter message..." name="body" value="{{old('body')}}">
                             </div>

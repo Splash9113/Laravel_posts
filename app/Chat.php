@@ -18,4 +18,9 @@ class Chat extends Model
         return $this->hasMany(Message::class, 'to_chat_id');
     }
 
+    public function lastMessage()
+    {
+        return $this->messages()->orderBy('created_at', 'desc')->first();
+    }
+
 }

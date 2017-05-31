@@ -7801,4 +7801,13 @@ button.close {
   margin-top: 10px;
 }
 
+.chat-msg.name {
+  font-weight: bold;
+  color: pink;
+}
+
+.chat-msg.name.your-chat-msg {
+  color: deepskyblue;
+}
+
 /*# sourceMappingURL=app.css.map */

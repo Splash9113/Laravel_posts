@@ -27,5 +27,6 @@ Route::delete('posts/{post}/comments/{comment}', 'CommentController@destroy')->n
 
 //Messages
 Route::get('message', 'MessageController@index')->name('message.index');
-Route::get('message/{user}', 'MessageController@chat')->name('message.chat');
-Route::post('message/{user}', 'MessageController@send')->name('message.send');
+Route::get('message/{user}', 'MessageController@privateChat')->name('message.privateChat');
+Route::get('message/chat/{chat}', 'MessageController@chat')->name('message.chat');
+Route::post('message/chat/{chat}', 'MessageController@send')->name('message.send');

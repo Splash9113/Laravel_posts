@@ -34,3 +34,13 @@
 .has-error {
   margin-top: 10px;
 }
+
+.chat-msg {
+  &.name {
+    font-weight: bold;
+    color: pink;
+    &.your-chat-msg {
+      color: deepskyblue;
+    }
+  }
+}

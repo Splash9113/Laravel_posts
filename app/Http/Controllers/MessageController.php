@@ -3,19 +3,20 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreMessageRequest;
-use App\Http\Services\MessageService;
-use App\Message;
+use App\Http\Services\ChatService;
 use App\User;
+use App\Chat;
+use App\Message;
 use Illuminate\Support\Facades\Auth;
 
 class MessageController extends Controller
 {
-    public $messageService;
+    public $chatService;
 
     public function __construct()
     {
         $this->middleware('auth');
-        $this->messageService = new MessageService();
+        $this->chatService = new ChatService();
     }
 
     /**
@@ -26,33 +27,56 @@ class MessageController extends Controller
     public function index()
     {
         $data = [
-            'chats' => $this->messageService->getChats(),
+            'chats' => $this->chatService->getChats(),
             'users' => User::all()
         ];
-        return view('message.messages', $data);
+        return view('chat.chats', $data);
     }
 
     /**
      * @param User $user
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function chat(User $user)
+    public function privateChat(User $user)
     {
-        return view('message.chat', ['user' => $user]);
+        $chat = (Auth::user())->findOrCreateChat($user);
+
+        $data = [
+            'chat' => $this->chatService->getChat($chat),
+            'messages' => $chat->messages()->get()
+        ];
+        return view('chat.chat', $data);
+    }
+
+    /**
+     * @param Chat $chat
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function chat(Chat $chat)
+    {
+        $data = [
+            'chat' => $this->chatService->getChat($chat),
+            'messages' => $chat->messages()->with('from')->get()
+        ];
+        return view('chat.chat', $data);
     }
 
     /**
      * @param StoreMessageRequest $request
-     * @param User $user
+     * @param Chat $chat
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function send(StoreMessageRequest $request, User $user)
+    public function send(StoreMessageRequest $request, Chat $chat)
     {
-        $chat = (Auth::user())->findOrCreateChat($user);
         $message = new Message($request->all());
         $message->to()->associate($chat);
         $message->from()->associate(Auth::user());
         $message->save();
 
-        dd($message);
+        $data = [
+            'chat' => $this->chatService->getChat($chat),
+            'messages' => $chat->messages()->get()
+        ];
+        return view('chat.chat', $data);
     }
 }
