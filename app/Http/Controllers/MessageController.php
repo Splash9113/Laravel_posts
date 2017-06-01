@@ -54,6 +54,9 @@ class MessageController extends Controller
      */
     public function chat(Chat $chat)
     {
+        if (!policy($chat)->chatAllowed(Auth::user(), $chat)) {
+            abort(403);
+        }
         $data = [
             'chat' => $this->chatService->getChat($chat),
             'messages' => $chat->messages()->with('from')->get()
@@ -68,6 +71,9 @@ class MessageController extends Controller
      */
     public function send(StoreMessageRequest $request, Chat $chat)
     {
+        if (!policy($chat)->chatAllowed(Auth::user(), $chat)) {
+            abort(403);
+        }
         $message = new Message($request->all());
         $message->to()->associate($chat);
         $message->from()->associate(Auth::user());
