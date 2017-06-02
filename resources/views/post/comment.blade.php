@@ -27,7 +27,7 @@
             @endforelse
             @if(Auth::check())
                 <div class="row new-comment">
-                    {{ Form::open(['route' => ['comments.store', $post['id']], 'method' => 'get', 'class' => 'form-horizontal']) }}
+                    {{ Form::open(['route' => ['comments.store', $post['id']], 'method' => 'post', 'class' => 'form-horizontal']) }}
                     <div class="col-sm-10">
                         <input class="form-control" placeholder="Leave your comment..." name="body" value="{{old('body')}}">
                     </div>

@@ -12,7 +12,6 @@
 
     <!-- Styles -->
     <link href="{{elixir('/css/app.css')}}" rel="stylesheet">
-    <link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
 
     <script>
       window.Laravel = <?php echo json_encode([
