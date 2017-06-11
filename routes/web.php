@@ -18,6 +18,12 @@ Route::get('/', function () {
     return redirect()->route('posts.index');
 });
 
+//Profile
+Route::get('profile', 'ProfileController@index')->name('profile.index');
+Route::get('profile/edit', 'ProfileController@edit')->name('profile.edit');
+Route::post('profile', 'ProfileController@update')->name('profile.update');
+Route::delete('profile', 'ProfileController@destroy')->name('profile.destroy');
+
 //Posts
 Route::resource('posts', 'PostController');
 
