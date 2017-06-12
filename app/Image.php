@@ -8,6 +8,8 @@ class Image extends Model
 {
     protected $fillable = ['img_url'];
 
+    public $timestamps = false;
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */

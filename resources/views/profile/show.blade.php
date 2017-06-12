@@ -5,10 +5,15 @@
         <div class="row">
             <div class="col-md-10 col-md-offset-1">
                 <div class="panel panel-default">
-                    <div class="panel-heading">{{$user->name}}</div>
+                    <div class="panel-heading">
+                        {{$user->name}}
+                        <span class="right">
+                            <a href="{{route('profile.edit')}}">Edit</a>
+                        </span>
+                    </div>
                     <div class="panel-body">
                         <div class="col-md-4">
-                            {{--avatar--}}
+                            <img class="user-avatar" src="{{url('/').'/'.($user->image->img_url ?? 'image/avatar_placeholder.png')}}">
                         </div>
                         <div class="col-md-8">
                             @if ($user->status)

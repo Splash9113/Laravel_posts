@@ -19,7 +19,23 @@ $(document).ready(function () {
   //   el: 'body'
   // });
 
+  //Event for display active/disabled posts
   $('.panel-heading').find('input').click(function () {
     window.location.replace(`/posts?active=${$('.panel-heading').find('input').val() == 1 ? 0 : 1}`);
   });
+
+  //Event to display the downloading file
+  $(document).on('change', ':file', function () {
+    var label = $(this).val().replace(/\\/g, '/').replace(/.*\//, ''),
+      input = $(this).parents('.input-group').find(':text'),
+      log = label;
+
+    if (input.length) {
+      input.val(log);
+    } else {
+      if (log) alert(log);
+    }
+
+  });
+
 });

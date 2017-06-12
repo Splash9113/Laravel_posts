@@ -23,27 +23,4 @@ class ChatService
             }
         })->unique();
     }
-
-    public function getChat(Chat $chat)
-    {
-        $chat['chatName'] = $this->selectChatName($chat);
-        return $chat;
-    }
-
-    /**
-     * @param $chat
-     * @return mixed
-     */
-    private function selectChatName($chat)
-    {
-        if ($chat->name) {
-            return $chat->name;
-        }
-        foreach ($chat->users as $user) {
-            if ($user->id != Auth::user()->id) {
-                return $user->name;
-            }
-        }
-        return $chat->users[0]->name;
-    }
 }

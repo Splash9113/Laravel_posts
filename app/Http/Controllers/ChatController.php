@@ -58,7 +58,7 @@ class ChatController extends Controller
             abort(403);
         }
         $data = [
-            'chat' => $this->chatService->getChat($chat),
+            'chat' => $chat,
             'messages' => $chat->messages()->with('from')->get()
         ];
         return view('chat.chat', $data);
@@ -80,7 +80,7 @@ class ChatController extends Controller
         $message->save();
 
         $data = [
-            'chat' => $this->chatService->getChat($chat),
+            'chat' => $chat,
             'messages' => $chat->messages()->get()
         ];
         return view('chat.chat', $data);

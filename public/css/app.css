@@ -7809,4 +7809,8 @@ button.close {
   color: deepskyblue;
 }
 
+.user-avatar {
+  width: 100%;
+}
+
 /*# sourceMappingURL=app.css.map */
