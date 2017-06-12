@@ -20,7 +20,7 @@
                             <p>This chat is empty</p>
                         @endforelse
                         <div class="row new-comment">
-                            {{ Form::open(['route' => ['message.send', $chat->id], 'method' => 'post', 'class' => 'form-horizontal']) }}
+                            {{ Form::open(['route' => ['chat.send', $chat->id], 'method' => 'post', 'class' => 'form-horizontal']) }}
                             <div class="col-sm-10">
                                 <input class="form-control" placeholder="Enter message..." name="body" value="{{old('body')}}">
                             </div>

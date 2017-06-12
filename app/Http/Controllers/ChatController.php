@@ -9,14 +9,14 @@ use App\Chat;
 use App\Message;
 use Illuminate\Support\Facades\Auth;
 
-class MessageController extends Controller
+class ChatController extends Controller
 {
     public $chatService;
 
-    public function __construct()
+    public function __construct(ChatService $chatService)
     {
         $this->middleware('auth');
-        $this->chatService = new ChatService();
+        $this->chatService = $chatService;
     }
 
     /**
@@ -42,7 +42,7 @@ class MessageController extends Controller
         $chat = (Auth::user())->findOrCreateChat($user);
 
         $data = [
-            'chat' => $this->chatService->getChat($chat),
+            'chat' => $chat,
             'messages' => $chat->messages()->get()
         ];
         return view('chat.chat', $data);

@@ -9,7 +9,7 @@
                     <div class="panel-body">
                         @forelse ($chats as $chat)
                             <h4>
-                                <a href="{{ route('message.chat', $chat->id) }}">{{$chat->chatName}}</a>
+                                <a href="{{ route('chat.show', $chat->id) }}">{{$chat->chatName}}</a>
                             </h4>
                             <p>{{$chat->lastMsg->body}}</p>
                         @empty
@@ -22,7 +22,7 @@
                     <div class="panel-body">
                         @forelse ($users as $user)
                             <h4>
-                                <a href="{{ route('message.privateChat', $user->id) }}">{{$user->name}}</a>
+                                <a href="{{ route('chat.showPrivate', $user->id) }}">{{$user->name}}</a>
                             </h4>
                         @empty
                             <p>No new users</p>

@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 class Chat extends Model
 {
@@ -21,6 +22,20 @@ class Chat extends Model
     public function lastMessage()
     {
         return $this->messages()->orderBy('created_at', 'desc')->first();
+    }
+
+    public function getChatNameAttribute()
+    {
+        if ($this->name) {
+            return $this->name;
+        }
+        $name = '';
+        foreach ($this->users as $user) {
+            if ($user->id != Auth::user()->id) {
+                $name .= $user->name;
+            }
+        }
+        return $name ? $name : $this->users[0]->name;
     }
 
 }

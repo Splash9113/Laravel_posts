@@ -3,7 +3,6 @@
 namespace App\Http\Services;
 
 
-
 use App\Chat;
 use Illuminate\Support\Facades\Auth;
 
@@ -16,7 +15,7 @@ class ChatService
 
         return $chats->map(function ($item, $key) {
             $item['lastMsg'] = $item->lastMessage();
-            $item['chatName'] = $this->selectChatName($item);
+            $item['chatName'] = $item->chatName;
             return $item;
         })->reject(function($item, $key) {
             if (!$item->lastMsg) {

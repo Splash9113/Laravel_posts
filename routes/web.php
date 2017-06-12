@@ -32,7 +32,7 @@ Route::post('posts/{post}/comments', 'CommentController@store')->name('comments.
 Route::delete('posts/{post}/comments/{comment}', 'CommentController@destroy')->name('comments.destroy');
 
 //Messages
-Route::get('message', 'MessageController@index')->name('message.index');
-Route::get('message/{user}', 'MessageController@privateChat')->name('message.privateChat');
-Route::get('message/chat/{chat}', 'MessageController@chat')->name('message.chat');
-Route::post('message/chat/{chat}', 'MessageController@send')->name('message.send');
+Route::get('message', 'ChatController@index')->name('chat.index');
+Route::get('message/{user}', 'ChatController@privateChat')->name('chat.showPrivate');
+Route::get('message/chat/{chat}', 'ChatController@chat')->name('chat.show');
+Route::post('message/chat/{chat}', 'ChatController@send')->name('chat.send');
