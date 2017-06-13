@@ -18,7 +18,7 @@ class UpdateUsersTableAddImageId extends Migration
 
             $table->foreign('image_id')
                 ->references('id')->on('images')
-                ->onDelete('cascade')
+                ->onDelete('set null')
                 ->onUpdate('cascade');
         });
     }

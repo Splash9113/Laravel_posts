@@ -8,8 +8,15 @@
                     <div class="panel-heading">Your profile</div>
                     <div class="panel-body">
                         <div class="col-md-4">
-                            <img class="user-avatar" src="{{url('/').'/'.($user->image->img_url ?? 'image/avatar_placeholder.png')}}">
-                            {{ Form::open(['route' => ['image.upload'], 'files' => 'true']) }}
+                            {{ Form::open(['route' => ['avatar.delete']]) }}
+                            <div class="img-wrap">
+                                @if ($user->image)
+                                    <button class="btn-link close" type="submit">&times;</button>
+                                @endif
+                                <img class="user-avatar" src="{{$user->full_img_url}}">
+                            </div>
+                            {{ Form::close() }}
+                            {{ Form::open(['route' => ['avatar.upload'], 'files' => 'true']) }}
                             <div class="form-group">
                                 <div class="input-group">
                                     <label class="input-group-btn">
@@ -66,16 +73,24 @@
                                     </div>
                                 </div>
                             @endif
-                            <div class="row">
-                                <div class="col-md-offset-10 col-md-2">
+                            <div class="row text-right">
+                                <div class="col-md-12">
+                                    <a class="btn btn-default" href="{{route('profile.index')}}">Cancel</a>
                                     <button class="btn btn-primary">Update</button>
                                 </div>
                             </div>
                             {{ Form::close() }}
-                            {{ Form::open(['route' => ['profile.destroy'], 'class' => 'form-horizontal']) }}
-
-                            {{ Form::close() }}
                         </div>
+                        <form action="{{route('profile.destroy')}}" method="POST"
+                              onsubmit="return confirm('Do you really want to remove your profile?');">
+                            {{ csrf_field() }}
+                            {{ method_field('DELETE') }}
+                            <div class="row text-right delete-row">
+                                <div class="col-md-12">
+                                    <button class="btn btn-link delete-link">Delete Profile</button>
+                                </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>

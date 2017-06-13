@@ -13,7 +13,7 @@
                     </div>
                     <div class="panel-body">
                         <div class="col-md-4">
-                            <img class="user-avatar" src="{{url('/').'/'.($user->image->img_url ?? 'image/avatar_placeholder.png')}}">
+                            <img class="user-avatar" src="{{$user->full_img_url}}">
                         </div>
                         <div class="col-md-8">
                             @if ($user->status)

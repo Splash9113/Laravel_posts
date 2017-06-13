@@ -3,18 +3,27 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ImageRequest;
-use App\Image;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Storage;
+use App\Http\Services\ImageService;
 
 class ImageController extends Controller
 {
-    public function upload(ImageRequest $request)
+    public $imageService;
+
+    public function __construct(ImageService $imageService)
     {
-        $image = Image::create(['img_url' =>
-            $request->file('file')->move('images', $request->file->getClientOriginalName())->getPathname()
-        ]);
-        Auth::user()->image()->associate($image)->save();
+        $this->imageService = $imageService;
+    }
+
+    public function uploadAvatar(ImageRequest $request)
+    {
+        $this->imageService->saveUserAvatar($request);
+
+        return back();
+    }
+
+    public function deleteAvatar()
+    {
+        $this->imageService->deleteUserAvatar();
         return back();
     }
 }

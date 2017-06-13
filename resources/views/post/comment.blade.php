@@ -7,7 +7,7 @@
                     <div class="col-sm-12">{{$comment->created_at}}</div>
                 </div>
                 <div class="row comment">
-                    <label class="control-label col-sm-2" for="comment">{{\App\User::findOrFail($comment->user_id)->name}}</label>
+                    <label class="control-label col-sm-2" for="comment">{{\App\User::withTrashed()->findOrFail($comment->user_id)->name}}</label>
                     <div class="col-sm-10" id="comment">
                         @can('destroy', [$comment, $post])
                             <form action="/posts/{{ $post->id }}/comments/{{ $comment->id }}" method="POST"

@@ -25,7 +25,8 @@ Route::post('profile', 'ProfileController@update')->name('profile.update');
 Route::delete('profile', 'ProfileController@destroy')->name('profile.destroy');
 
 //Images
-Route::post('image-upload', 'ImageController@upload')->name('image.upload');
+Route::post('avatar-upload', 'ImageController@uploadAvatar')->name('avatar.upload');
+Route::post('avatar-delete', 'ImageController@deleteAvatar')->name('avatar.delete');
 
 //Posts
 Route::resource('posts', 'PostController');

@@ -3,13 +3,17 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileRequest;
+use App\Http\Services\UserService;
 use Illuminate\Support\Facades\Auth;
 
 class ProfileController extends Controller
 {
-    public function __construct()
+    public $userService;
+
+    public function __construct(UserService $userService)
     {
         $this->middleware('auth');
+        $this->userService = $userService;
     }
 
     /**
@@ -49,6 +53,7 @@ class ProfileController extends Controller
      */
     public function destroy()
     {
-        //
+        $this->userService->deleteUserProfile();
+        return redirect(route('login'));
     }
 }

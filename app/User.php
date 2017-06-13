@@ -2,12 +2,22 @@
 
 namespace App;
 
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
+    use SoftDeletes;
     use Notifiable;
+
+
+    /**
+     * The attributes that should be mutated to dates.
+     *
+     * @var array
+     */
+    protected $dates = ['deleted_at'];
 
     /**
      * The attributes that are mass assignable.
@@ -68,6 +78,11 @@ class User extends Authenticatable
         return $this->belongsTo(Image::class);
     }
 
+    public function getFullImgUrlAttribute()
+    {
+        return url('storage') . '/' . ($this->image->img_url ?? 'avatar_placeholder.png');
+    }
+
     /**
      * @param User $user
      * @return mixed
@@ -104,7 +119,7 @@ class User extends Authenticatable
                     $query->where('users.id', $this->id);
                 })->with('users')->get();
             return $chat->reject(function ($item, $key) {
-                if($item->users->count() > 1) {
+                if ($item->users->count() > 1) {
                     return true;
                 }
             })->first();
