@@ -3,7 +3,8 @@
 namespace App\Http\Services;
 
 
-use App\Chat;
+use App\Events\ChatMessageWasReceived;
+use App\Message;
 use Illuminate\Support\Facades\Auth;
 
 class ChatService
@@ -22,5 +23,16 @@ class ChatService
                 return true;
             }
         })->unique();
+    }
+
+    public function storeMessage($request, $chat) {
+        $message = new Message($request->all());
+        $message->to()->associate($chat);
+        $message->from()->associate(Auth::user());
+        $message->save();
+
+        foreach($chat->users as $user) {
+            broadcast(new ChatMessageWasReceived($message, $user));
+        }
     }
 }

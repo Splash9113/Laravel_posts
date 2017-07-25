@@ -7,18 +7,20 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">{{$chat->chatName}}</div>
                     <div class="panel-body">
-                        @forelse ($messages as $message)
-                            <div class="row">
-                                @if ($message->from == Auth::user())
-                                    <div class="col-xs-1 chat-msg name your-chat-msg">You:</div>
-                                @else
-                                    <div class="col-xs-1 chat-msg name">{{$message->from->name}}:</div>
-                                @endif
-                                <div class="col-xs-11">{{$message->body}}</div>
-                            </div>
-                        @empty
-                            <p>This chat is empty</p>
-                        @endforelse
+                        <div data-chat>
+                            @forelse ($messages as $message)
+                                <div class="row">
+                                    @if ($message->from == Auth::user())
+                                        <div class="col-xs-1 chat-msg name your-chat-msg">You:</div>
+                                    @else
+                                        <div class="col-xs-1 chat-msg name">{{$message->from->name}}:</div>
+                                    @endif
+                                    <div class="col-xs-11">{{$message->body}}</div>
+                                </div>
+                            @empty
+                                <p>This chat is empty</p>
+                            @endforelse
+                        </div>
                         <div class="row new-comment">
                             {{ Form::open(['route' => ['chat.send', $chat->id], 'method' => 'post', 'class' => 'form-horizontal']) }}
                             <div class="col-sm-10">

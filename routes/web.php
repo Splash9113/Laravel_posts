@@ -26,7 +26,8 @@ Route::delete('profile', 'ProfileController@destroy')->name('profile.destroy');
 
 //Images
 Route::post('avatar-upload', 'ImageController@uploadAvatar')->name('avatar.upload');
-Route::post('avatar-delete', 'ImageController@deleteAvatar')->name('avatar.delete');
+Route::post('avatar-delete', 'ImageController@deleteAvatar            $table->softDeletes();
+')->name('avatar.delete');
 
 //Posts
 Route::resource('posts', 'PostController');

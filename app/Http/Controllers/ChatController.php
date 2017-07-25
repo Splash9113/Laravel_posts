@@ -6,7 +6,6 @@ use App\Http\Requests\StoreMessageRequest;
 use App\Http\Services\ChatService;
 use App\User;
 use App\Chat;
-use App\Message;
 use Illuminate\Support\Facades\Auth;
 
 class ChatController extends Controller
@@ -74,10 +73,8 @@ class ChatController extends Controller
         if (!policy($chat)->chatAllowed(Auth::user(), $chat)) {
             abort(403);
         }
-        $message = new Message($request->all());
-        $message->to()->associate($chat);
-        $message->from()->associate(Auth::user());
-        $message->save();
+
+        $this->chatService->storeMessage($request, $chat);
 
         $data = [
             'chat' => $chat,

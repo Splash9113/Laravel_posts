@@ -14,6 +14,7 @@
     <link href="{{elixir('/css/app.css')}}" rel="stylesheet">
 
     <script>
+      window.userId = {{Auth::user() ? Auth::user()->id : ''}}
       window.Laravel = <?php echo json_encode([
             'csrfToken' => csrf_token(),
         ]); ?>
@@ -39,10 +40,6 @@
         </div>
 
         <div class="collapse navbar-collapse" id="app-navbar-collapse">
-            <!-- Left Side Of Navbar -->
-            <ul class="nav navbar-nav">
-                &nbsp;
-            </ul>
 
             <!-- Right Side Of Navbar -->
             <ul class="nav navbar-nav navbar-right">
@@ -83,6 +80,7 @@
 @yield('content')
 
 <!-- Scripts -->
+<script src="//localhost:6001/socket.io/socket.io.js"></script>
 <script src="{{elixir('/js/app.js')}}"></script>
 </body>
 </html>
