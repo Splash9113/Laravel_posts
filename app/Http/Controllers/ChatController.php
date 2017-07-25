@@ -66,7 +66,6 @@ class ChatController extends Controller
     /**
      * @param StoreMessageRequest $request
      * @param Chat $chat
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function send(StoreMessageRequest $request, Chat $chat)
     {
@@ -75,11 +74,5 @@ class ChatController extends Controller
         }
 
         $this->chatService->storeMessage($request, $chat);
-
-        $data = [
-            'chat' => $chat,
-            'messages' => $chat->messages()->get()
-        ];
-        return view('chat.chat', $data);
     }
 }

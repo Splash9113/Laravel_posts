@@ -22,27 +22,26 @@
                             @endforelse
                         </div>
                         <div class="row new-comment">
-                            {{ Form::open(['route' => ['chat.send', $chat->id], 'method' => 'post', 'class' => 'form-horizontal']) }}
+                            {{ Form::open(['class' => 'form-horizontal', 'id' => 'message']) }}
                             <div class="col-sm-10">
-                                <input class="form-control" placeholder="Enter message..." name="body" value="{{old('body')}}">
+                                <input type="text" class="form-control" placeholder="Enter message..." name="body">
                             </div>
                             <div class="col-sm-2">
                                 <button class="btn btn-info btn-wide">Send</button>
                             </div>
                             {{ Form::close() }}
                         </div>
-                        @if ($errors->has('body'))
-                            <div class="row has-error">
-                                <div class="col-sm-10">
-                                    <div class="alert alert-danger">
-                                        <strong>Danger!</strong> {{$errors->first('body')}}
-                                    </div>
-                                </div>
-                            </div>
-                        @endif
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    <!-- Scripts for web-sockets -->
+    <script>
+        window.requestUrl = '{{route('chat.send', $chat->id)}}';
+        console.log(window.requestUrl);
+    </script>
+    <script src="//localhost:6001/socket.io/socket.io.js"></script>
+    <script src="{{elixir('/js/web-sockets.js')}}"></script>
+
 @endsection

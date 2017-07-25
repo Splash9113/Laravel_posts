@@ -6,23 +6,9 @@
 
 require('./bootstrap');
 
-import Echo from "laravel-echo";
-
-window.Echo = new Echo({
-  broadcaster: 'socket.io',
-  host: 'localhost:6001'
-});
-
 $(document).ready(function () {
-  if (window.userId) {
-    window.Echo.channel('user.'+window.userId)
-      .listen('ChatMessageWasReceived', (e) => {
-        console.log($('[data-chat]'));
-        console.log(e.message.body);
-      });
-  }
 
-    //Event for display active/disabled posts
+  //Event for display active/disabled posts
   $('.panel-heading').find('input').click(function () {
     window.location.replace(`/posts?active=${$('.panel-heading').find('input').val() == 1 ? 0 : 1}`);
   });

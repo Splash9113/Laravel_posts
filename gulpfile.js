@@ -16,6 +16,7 @@ const elixir = require('laravel-elixir');
 elixir(mix => {
     mix.sass('app.scss')
       .webpack('app.js')
+      .webpack('web-sockets.js')
       .copy('node_modules/bootstrap-sass/assets/fonts', 'public/build/fonts')
       .version(['css/app.css', 'js/app.js']);
 });
